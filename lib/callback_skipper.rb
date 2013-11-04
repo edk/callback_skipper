@@ -18,7 +18,7 @@ module CallbackSkipper
   # asserts that the callback exists in the callback chain
   # @param args [Array] array of options matching the set_callback signiture.  first param is either the method name or the callback type (before/after/around)
   def callback_defined?(name, *args)
-    callback_method_name = args[0].in?([:before, :after, :around]) ? args[1] : args[0]
+    callback_method_name = [:before, :after, :around].include?(args[0]) ? args[1] : args[0]
     self.send("_#{name}_callbacks").collect(&:filter).include?(callback_method_name)
   end
 end
